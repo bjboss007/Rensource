@@ -46,10 +46,15 @@ public class VideoController {
         return assembler.toModel(video);
     }
 
-    @PutMapping("/{videoId}/pricing")
+    @PostMapping("/{videoId}/pricing")
     public ResponseEntity getPricing(@PathVariable("videoId") Long videoId, @RequestBody PricingDTO pricingDTO){
         System.out.println(pricingDTO);
         RentedVideo rentedVideo = videoService.calculatePrice(videoId, pricingDTO.getName(), pricingDTO.getDays());
         return ResponseEntity.ok(rentedVideo);
+    }
+
+    @GetMapping("rentals")
+    public ResponseEntity getAllRentals(){
+        return  ResponseEntity.ok(videoService.getRentalVideos());
     }
 }

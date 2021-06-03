@@ -1,5 +1,6 @@
 package com.rensource.rental.video;
 
+import com.rensource.rental.common.BadRequestException;
 import com.rensource.rental.common.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -53,7 +54,9 @@ public class VideoServiceImpl implements VideoService{
     public RentedVideo calculatePrice(Long id, String name, int days) {
         double price = 0.0;
         RentedVideo rentedVideo = new RentedVideo();
-        Video video = videoRepo.getById(id);
+        Video video = videoRepo.findById(id).orElseThrow(()-> new ObjectNotFoundException("Video not found"));
+        if(days <= 0)
+            throw new BadRequestException("Rental Day(s) should be greater than Zero");
         if(video.getType().getType() !=null){
             if ("regular".equalsIgnoreCase(video.getType().getType())) {
                 price = 10 * days;
@@ -69,6 +72,11 @@ public class VideoServiceImpl implements VideoService{
         rentedVideo.setTitle(video.getTitle());
         rentedVideoRepo.save(rentedVideo);
         return rentedVideo;
+    }
+
+    @Override
+    public List<RentedVideo> getRentalVideos() {
+        return rentedVideoRepo.findAll();
     }
 
     private VideoDTO convertEntity(Video video){
