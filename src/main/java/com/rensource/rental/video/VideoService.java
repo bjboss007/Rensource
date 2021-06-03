@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface VideoService {
 
@@ -13,5 +12,5 @@ public interface VideoService {
     List<VideoDTO> getVideoByGenre(String genre);
     List<VideoDTO> getVideoList();
     Page<VideoDTO> getVideoPageable(Pageable pageable);
-
+    RentedVideo calculatePrice(Long id, String name, int days);
 }

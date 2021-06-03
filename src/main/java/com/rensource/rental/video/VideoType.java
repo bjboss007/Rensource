@@ -11,8 +11,11 @@ import javax.persistence.Entity;
 @Entity
 public class VideoType extends AbstractEntity {
     private String type;
-    private String maxAge;
+    private int maxAge;
     private String releasedDate;
+
+    public VideoType() {
+    }
 
     public String getType() {
         return type;
@@ -22,11 +25,11 @@ public class VideoType extends AbstractEntity {
         this.type = type;
     }
 
-    public String getMaxAge() {
+    public int getMaxAge() {
         return maxAge;
     }
 
-    public void setMaxAge(String maxAge) {
+    public void setMaxAge(int maxAge) {
         this.maxAge = maxAge;
     }
 
@@ -39,9 +42,9 @@ public class VideoType extends AbstractEntity {
     }
 
     public enum Type {
-        REGULAR("regular"),
-        CHILDREN("children"),
-        NEW_RELEASE("new_release");
+        REGULAR("Regular"),
+        CHILDREN("Children"),
+        NEW_RELEASE("New_Release");
 
         private final String type;
 

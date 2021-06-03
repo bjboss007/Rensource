@@ -18,14 +18,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class VideoAssembler implements RepresentationModelAssembler<VideoDTO, EntityModel<VideoDTO>> {
 
 
-    private String name =  "";
-    Pageable pageage = PageRequest.of(0,5);
+    private PricingDTO pricingDTO;
     @Override
     public EntityModel<VideoDTO> toModel(VideoDTO video) {
+        Pageable pageable = PageRequest.of(0,5);
         return EntityModel.of(video,
                 linkTo(methodOn(VideoController.class).getVideo(video.getId())).withSelfRel(),
-                linkTo(methodOn(VideoController.class).getAllVideos(pageage)).withRel("all-Videos")
-//                linkTo(methodOn(VideoController.class).getVideoPrice(video.getId(),name)).withRel("pricing")
+                linkTo(methodOn(VideoController.class).getAllVideos(pageable)).withRel("all-Videos"),
+                linkTo(methodOn(VideoController.class).getPricing(video.getId(), pricingDTO)).withRel("pricing")
                 );
     }
 
