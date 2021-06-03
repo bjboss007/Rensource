@@ -7,8 +7,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +16,9 @@ public class VideoServiceImpl implements VideoService{
 
     @Autowired
     private VideoRepository videoRepo;
+
+    @Autowired
+    private RentedVideoRepo rentedVideoRepo;
 
     @Override
     public VideoDTO getVideo(Long id) {
@@ -25,7 +28,7 @@ public class VideoServiceImpl implements VideoService{
 
     @Override
     public List<VideoDTO> getVideoByType(String type) {
-        return convertToEntities(videoRepo.getVideosByType_Name(type));
+        return convertToEntities(videoRepo.getVideosByType_Type(type));
     }
 
     @Override
@@ -44,6 +47,28 @@ public class VideoServiceImpl implements VideoService{
         int start = (int)pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), videoDTOList.size());
         return new PageImpl<>(videoDTOList.subList(start, end), pageable, videoDTOList.size());
+    }
+
+    @Override
+    public RentedVideo calculatePrice(Long id, String name, int days) {
+        double price = 0.0;
+        RentedVideo rentedVideo = new RentedVideo();
+        Video video = videoRepo.getById(id);
+        if(video.getType().getType() !=null){
+            if ("regular".equalsIgnoreCase(video.getType().getType())) {
+                price = 10 * days;
+            } else if ("children".equalsIgnoreCase(video.getType().getType())) {
+                price = 8 * days + (video.getType().getMaxAge()/2);
+            }else if ("new_release".equalsIgnoreCase(video.getType().getType())){
+                int year = Integer.parseInt(video.getType().getReleasedDate().substring(2));
+                price = Math.abs(15 * days-year);
+            }
+        }
+        rentedVideo.setPrice(BigDecimal.valueOf(price));
+        rentedVideo.setUsername(name);
+        rentedVideo.setTitle(video.getTitle());
+        rentedVideoRepo.save(rentedVideo);
+        return rentedVideo;
     }
 
     private VideoDTO convertEntity(Video video){

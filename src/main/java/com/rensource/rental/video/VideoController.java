@@ -4,6 +4,7 @@ package com.rensource.rental.video;
 import com.rensource.rental.common.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
@@ -32,6 +33,7 @@ public class VideoController {
 
     @GetMapping("")
     public ResponseEntity<PagedModel<EntityModel<VideoDTO>>> getAllVideos(Pageable pageable){
+//        Pageable pageable1 = PageRequest.of(0,5);
         Page<VideoDTO> videos = videoService.getVideoPageable(pageable);
         PagedModel<EntityModel<VideoDTO>> videoEntities = pagedResourcesAssembler
                 .toModel(videos, assembler);
@@ -39,15 +41,15 @@ public class VideoController {
     }
 
     @GetMapping("{id}")
-    public EntityModel<VideoDTO> getVideo(Long id){
+    public EntityModel<VideoDTO> getVideo(@PathVariable("id") Long id){
         VideoDTO video = videoService.getVideo(id);
         return assembler.toModel(video);
     }
 
-    @PutMapping("/{id}/pricing")
-    public ResponseEntity getPricing(Long id, @RequestBody(required = false) String name){
-        VideoDTO video = videoService.getVideo(id);
-        RentedVideo rentedVideo = videoService.calculatePrice(video, name);
-        return ResponseEntity.ok();
+    @PutMapping("/{videoId}/pricing")
+    public ResponseEntity getPricing(@PathVariable("videoId") Long videoId, @RequestBody PricingDTO pricingDTO){
+        System.out.println(pricingDTO);
+        RentedVideo rentedVideo = videoService.calculatePrice(videoId, pricingDTO.getName(), pricingDTO.getDays());
+        return ResponseEntity.ok(rentedVideo);
     }
 }

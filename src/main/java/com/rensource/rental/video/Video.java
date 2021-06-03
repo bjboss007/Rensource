@@ -52,11 +52,11 @@ public class Video extends AbstractEntity {
     }
 
     public enum Genre {
-        ACTION("action"),
-        DRAMA("drama"),
-        ROMANCE("romance"),
-        COMEDY("comedy"),
-        HORROR("horror");
+        ACTION("Action"),
+        DRAMA("Drama"),
+        ROMANCE("Romance"),
+        COMEDY("Comedy"),
+        HORROR("Horror");
 
         private final String genre;
 
