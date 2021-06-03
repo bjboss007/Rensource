@@ -13,4 +13,5 @@ public interface VideoService {
     List<VideoDTO> getVideoList();
     Page<VideoDTO> getVideoPageable(Pageable pageable);
     RentedVideo calculatePrice(Long id, String name, int days);
+    List<RentedVideo> getRentalVideos();
 }
