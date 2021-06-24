@@ -1,4 +1,4 @@
-package com.rensource.rental.video;
+package com.rensource.rental.video.dto;
 
 public class PricingDTO {
     private String name;

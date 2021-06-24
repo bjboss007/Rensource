@@ -1,6 +1,6 @@
-package com.rensource.rental.video;
+package com.rensource.rental.video.dto;
 
-public class VideoDTO {
+public class  VideoDTO {
 
     private Long id;
     private String title;
