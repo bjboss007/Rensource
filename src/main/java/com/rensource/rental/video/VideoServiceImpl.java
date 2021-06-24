@@ -1,7 +1,10 @@
 package com.rensource.rental.video;
 
-import com.rensource.rental.common.BadRequestException;
-import com.rensource.rental.common.ObjectNotFoundException;
+import com.rensource.rental.common.exceptions.BadRequestException;
+import com.rensource.rental.common.exceptions.ObjectNotFoundException;
+import com.rensource.rental.video.dto.VideoDTO;
+import com.rensource.rental.video.rentedVideo.RentedVideo;
+import com.rensource.rental.video.rentedVideo.RentedVideoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

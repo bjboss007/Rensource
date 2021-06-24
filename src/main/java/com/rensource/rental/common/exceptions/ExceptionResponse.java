@@ -1,4 +1,4 @@
-package com.rensource.rental.common;
+package com.rensource.rental.common.exceptions;
 
 import java.util.Date;
 

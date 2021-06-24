@@ -1,7 +1,10 @@
 package com.rensource.rental;
 
-import com.rensource.rental.common.ObjectNotFoundException;
+import com.rensource.rental.common.exceptions.ObjectNotFoundException;
 import com.rensource.rental.video.*;
+import com.rensource.rental.video.dto.VideoDTO;
+import com.rensource.rental.video.rentedVideo.RentedVideo;
+import com.rensource.rental.video.rentedVideo.RentedVideoRepo;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

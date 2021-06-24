@@ -1,5 +1,8 @@
 package com.rensource.rental.video;
 
+import com.rensource.rental.api.VideoController;
+import com.rensource.rental.video.dto.PricingDTO;
+import com.rensource.rental.video.dto.VideoDTO;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;

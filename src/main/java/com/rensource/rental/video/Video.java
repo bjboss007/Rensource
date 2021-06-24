@@ -1,6 +1,6 @@
 package com.rensource.rental.video;
 
-import com.rensource.rental.common.AbstractEntity;
+import com.rensource.rental.common.data.AbstractEntity;
 
 import javax.persistence.*;
 

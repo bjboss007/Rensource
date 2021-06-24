@@ -1,4 +1,4 @@
-package com.rensource.rental.common;
+package com.rensource.rental.common.data;
 
 import javax.persistence.*;
 import java.io.Serializable;

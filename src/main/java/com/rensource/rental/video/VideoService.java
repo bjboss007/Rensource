@@ -1,5 +1,7 @@
 package com.rensource.rental.video;
 
+import com.rensource.rental.video.dto.VideoDTO;
+import com.rensource.rental.video.rentedVideo.RentedVideo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
